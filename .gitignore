@@ -1,0 +1,29 @@
+# --- Maven rác biên dịch ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/.maven-wrapper.container
+
+# --- Giữ lại Maven Wrapper (BẮT BUỘC cho CI/CD) ---
+!.mvn/wrapper/maven-wrapper.jar
+
+# --- IDE rác (Bỏ qua nguyên thư mục cho sạch) ---
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+.nb-gradle/
+
+# --- Hệ điều hành ---
+.DS_Store
+Thumbs.db
