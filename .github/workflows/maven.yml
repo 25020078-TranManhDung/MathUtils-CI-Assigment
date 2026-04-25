@@ -24,7 +24,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
 
       - name: 3. Chay Build va Kiem tra Coverage
         # Su dung verify de kich hoat jacoco-check va bao cao
