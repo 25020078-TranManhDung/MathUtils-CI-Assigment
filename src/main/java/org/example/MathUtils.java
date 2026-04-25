@@ -16,7 +16,7 @@ public class MathUtils {
     }
 
     public static String getFilePath(String folder, String fileName) {
-        // Sử dụng Path.of để tự động chọn dấu gạch chéo đúng theo OS
+        //Sử dụng Path.of để tự động chọn dấu gạch chéo đúng theo OS
         return Path.of(folder, fileName).toString();
     }
 }
