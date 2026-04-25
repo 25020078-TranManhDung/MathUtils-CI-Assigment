@@ -1,5 +1,6 @@
 package org.example;
 
+import java.nio.file.Path;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -110,5 +111,18 @@ public class MathUtilsTest {
         // 4. EDGE CASE (TRÀN SỐ): Cực tiểu chia cho -1
         // -2147483648 / -1 = 2147483648 -> Tràn số giới hạn int -> Quay về -2147483648
         assertEquals(Integer.MIN_VALUE, MathUtils.divide(Integer.MIN_VALUE, -1));
+    }
+
+    @Test
+    void testFilePath() {
+        String folder = "data";
+        String fileName = "report.txt";
+
+        // Path.of sẽ tự hiểu:
+        // - Trên Windows là "data\report.txt"
+        // - Trên Linux là "data/report.txt"
+        String expected = Path.of(folder, fileName).toString();
+
+        assertEquals(expected, MathUtils.getFilePath(folder, fileName));
     }
 }
