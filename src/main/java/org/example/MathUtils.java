@@ -1,5 +1,7 @@
 package org.example;
 
+import java.nio.file.Path;
+
 public class MathUtils {
     public static int max(int a, int b) {
         if (a >= b) return a;
@@ -14,8 +16,8 @@ public class MathUtils {
     }
 
     public static String getFilePath(String folder, String fileName) {
-        // Cố tình dùng dấu gạch chéo ngược của Windows
-        return folder + "\\" + fileName;
+        // Sử dụng Path.of để tự động chọn dấu gạch chéo đúng theo OS
+        return Path.of(folder, fileName).toString();
     }
 }
 
