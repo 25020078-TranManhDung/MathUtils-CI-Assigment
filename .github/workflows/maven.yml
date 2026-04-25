@@ -10,20 +10,29 @@ jobs:
   build:
     # Sử dụng matrix để chạy trên nhiều OS
     strategy:
+      fail-fast: false  # Thêm dòng này để lỗi máy này không làm dừng máy kia
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
+      - name: 1. Lay code tu Repo
+        uses: actions/checkout@v4
+
+      - name: 2. Cai dat Java 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
-        # Trên Windows lệnh chmod sẽ được bỏ qua tự động hoặc dùng shell bash
-        run: mvn clean package -ntp
+      - name: 3. Chay Build va Test
+        # Tren Windows lenh chmod se duoc bo qua tu dong hoac dung shell bash
+        run: chmod +x mvnw && ./mvnw clean package -ntp
+
+      - name: 4. Luu file .jar (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MathUtils-San-Pham-${{ matrix.os }}
+          path: target/*.jar
