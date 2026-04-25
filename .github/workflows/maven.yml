@@ -8,9 +8,8 @@ on:
 
 jobs:
   build:
-    # Sử dụng matrix để chạy trên nhiều OS
     strategy:
-      fail-fast: false  # Thêm dòng này để lỗi máy này không làm dừng máy kia
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
@@ -27,12 +26,21 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: 3. Chay Build va Test
-        # Tren Windows lenh chmod se duoc bo qua tu dong hoac dung shell bash
-        run: chmod +x mvnw && ./mvnw clean package -ntp
+      - name: 3. Chay Build va Kiem tra Coverage
+        # Su dung verify de kich hoat jacoco-check va bao cao
+        run: chmod +x mvnw && ./mvnw clean verify -ntp
 
       - name: 4. Luu file .jar (Artifact)
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: MathUtils-San-Pham-${{ matrix.os }}
+          name: MathUtils-Jar-${{ matrix.os }}
           path: target/*.jar
+
+      - name: 5. Luu bao cao JaCoCo (Artifact)
+        # Su dung if: always() de luon co bao cao ngay ca khi build fail do thieu coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Jacoco-Report-${{ matrix.os }}
+          path: target/site/jacoco/
