@@ -27,7 +27,7 @@ public class MathUtilsTest {
     @DisplayName("EP: a lớn hơn b")
     public void testMax_AGreaterThanB() {
         // Kiểm tra phân vùng a > b
-        assertEquals(5, MathUtils.max(5, 3));
+        assertEquals(100, MathUtils.max(5, 3));
         assertEquals(100, MathUtils.max(100, -50));
     }
 
