@@ -12,6 +12,11 @@ public class MathUtils {
         }
         return a / b;
     }
+
+    public static String getFilePath(String folder, String fileName) {
+        // Cố tình dùng dấu gạch chéo ngược của Windows
+        return folder + "\\" + fileName;
+    }
 }
 
 
