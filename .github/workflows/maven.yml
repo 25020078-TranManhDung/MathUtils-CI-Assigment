@@ -27,7 +27,7 @@ jobs:
           cache: maven
 
       - name: 3. Chay Build va Kiem tra Coverage
-        # Su dung verify de kich hoat jacoco-check va bao cao
+        # Su dung verify de kich hoat jacoco-check va checkstyle
         run: chmod +x mvnw && ./mvnw clean verify -ntp
 
       - name: 4. Luu file .jar (Artifact)
@@ -38,9 +38,16 @@ jobs:
           path: target/*.jar
 
       - name: 5. Luu bao cao JaCoCo (Artifact)
-        # Su dung if: always() de luon co bao cao ngay ca khi build fail do thieu coverage
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Jacoco-Report-${{ matrix.os }}
           path: target/site/jacoco/
+
+      - name: 6. Tu dong Review va Comment vao Pull Request
+        # Chi chay buoc nay tren Linux de tranh trung lap binh luan tu 3 OS
+        if: github.event_name == 'pull_request' && matrix.os == 'ubuntu-latest'
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: warning
